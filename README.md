@@ -18,6 +18,9 @@
 * make
 * gdb
 * webbench
+## 待优化
+* 多线程异步日志
+* 为不提供拷贝构造和赋值运算符的类添加noncopyable基类
 ## 技术纲要
 * 并发模型：单Reactor多线程模型（同步）
 * 网络模式：多路Epoll(LT)IO + 非阻塞IO + readv、writev
