@@ -23,7 +23,7 @@
 * 为不提供拷贝构造和赋值运算符的类添加noncopyable基类
 ## 技术纲要
 * 并发模型：单Reactor多线程模型（同步）
-* 网络模式：多路Epoll(LT)IO + 非阻塞IO + readv、writev
+* 网络模式：多路Epoll(LT)IO + EPOLLONESHOT + 非阻塞IO + readv、writev
 * 线程池：C++11的线程库
 * 缓冲区：复刻了muduo的设计思想，双缓冲（vector+栈上64K）
 * 时钟：C++11的时间库
