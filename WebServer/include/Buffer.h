@@ -121,8 +121,6 @@ namespace  swings
 
 
 
-
-
         //确保writeable Bytes有足够空间
         void ensureWriteableBytes(size_t len)
         {

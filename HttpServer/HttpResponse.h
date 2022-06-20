@@ -17,7 +17,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../../BackEnd/include/StudentService.h"
+#include "../BackEnd/include/StudentService.h"
 
 
 #define CONNECT_TIMEOUT 1000 // 非活跃连接500ms断开

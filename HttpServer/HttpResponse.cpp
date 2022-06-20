@@ -1,7 +1,7 @@
 #include "HttpResponse.h"
-#include "../include/Buffer.h"
-#include "../../BackEnd/include/StudentService.h"
-#include "../../AsynLogSystem/include/Logging.h"
+#include "../WebServer/include/Buffer.h"
+#include "../BackEnd/include/StudentService.h"
+#include "../AsynLogSystem/include/Logging.h"
 
 #include <fcntl.h>//open
 #include <sys/mman.h>//mmap munmap
@@ -94,8 +94,9 @@ Buffer HttpResponse::makeResponse()
         doStaticResponse(output,lenth);
     }
 
-    return output;  
-}
+    return output; 
+    
+    }
 
 void HttpResponse::doStaticResponse( Buffer &output, long filesize )
 {

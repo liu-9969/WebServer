@@ -1,6 +1,6 @@
-#include "Epoll.h"
-#include "HttpRequest.h"
-#include "ThreadPool.h"
+#include "../include/Epoll.h"
+#include "../include/HttpRequest.h"
+#include "../include/ThreadPool.h"
 #include "../../AsynLogSystem/include/Logging.h"
 
 #include <string.h>

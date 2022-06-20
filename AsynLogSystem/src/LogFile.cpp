@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<time.h>
 #include"../include/LogFile.h"
-#include"FileUtil.h"
+#include"../include/FileUtil.h"
 
 LogFile::LogFile(const std::string& basename,int flushEveryN)
 	:basename_(basename),

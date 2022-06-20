@@ -1,13 +1,13 @@
 #include "HttpServer.h"
-#include "HttpRequest.h"
 #include "HttpResponse.h"
-#include "../include/ThreadPool.h"
-#include "../include/Epoll.h"
-#include "../include/Timer.h"
-#include "../include/Utils.h"
-#include "../include/MysqlPool.h"
+#include "../WebServer/include/HttpRequest.h"
+#include "../WebServer/include/ThreadPool.h"
+#include "../WebServer/include/Epoll.h"
+#include "../WebServer/include/Timer.h"
+#include "../WebServer/include/Utils.h"
+#include "../WebServer/include/MysqlPool.h"
 //#include "../../BackEnd/include/StudentService.h"
-#include "../../AsynLogSystem/include/Logging.h"
+#include "../AsynLogSystem/include/Logging.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -58,11 +58,11 @@ void HttpServer::run()
     }
 }
 
-
-
 //接受新连接
 //要放在while（1）循环里，否则，因为listenFd是ET模式，当同时有多个连接到来时只会触发一次，这样accept只能取一个连接
 //其他连接就延后处理了
+
+
 void HttpServer:: _acceptConnection()
 {
     while(1)
@@ -167,11 +167,16 @@ void HttpServer::_doRequest( HttpRequest* request)
 
 }
 
+// EPOLLONRSHORT：注册这个事件可以保证，在下次注册这个事件前，即便有事件到来，epoll也不会通知，在哪个线程注册无所谓
+// 我要求的是一个事件处理过程中，epoll不可以再通知我了，否则就是多个线程处理一个SOCKET,会分配多个缓存的。
+// 业务函数是返回Buffer还是string呢,IO线程还是只让他负责读写吧
+// 业务处理应该在这里大做文章 ,好难，业务和webserver分离在目录上就不好分离啊，响应怎么可能不和业务挂钩呢。
 // 业务函数是返回Buffer还是string呢,IO线程还是只让他负责读写吧
 // EPOLLONRSHORT：注册这个事件可以保证，在下次注册这个事件前，即便有事件到来，epoll也不会通知，在哪个线程注册无所谓
 // 我也不要求，一个事件的处理必须在一个线程完成(某个线程读socket + 某个线程处理业务 + 某个线程写回socket )
-// 我要求的是一个事件处理过程中，epoll不可以再通知我了，否则就是多个线程处理一个SOCKET,会分配多个缓存的。
+// 我要求的是一个事件处理过程中   ，epoll不可以再通知我了，否则就是多个线程处理一个SOCKET,会分配多个缓存的。
 // 业务处理应该在这里大做文章 ,好难，业务和webserver分离在目录上就不好分离啊，响应怎么可能不和业务挂钩呢。
+// 我也不要求，一个事件的处理必须在一个线程完成(某个线程读socket + 某个线程处理业务 + 某个线程写回socket )
 
 void HttpServer::_curdJob( HttpRequest* request )
 {
